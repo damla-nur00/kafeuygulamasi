@@ -19,16 +19,25 @@ class Icetea extends StatefulWidget {
 class _IceteaState extends State<Icetea> {
   TextEditingController _searchController = TextEditingController();
   List<String> _coffeeItems = [
-    'Americano',
-    'Cappuccino',
-    'Latte',
-    'Mocha',
-    'Macchiato',
-    'Espresso',
+    'Limonlu Buzlu Çay',
+    'Şeftalili Buzlu Çay',
+    'Yaseminli Soğuk Çay',
+    'Yeşil Soğuk Çay',
+    'Berry Mix Soğuk Çay',
+    'Matcha Soğuk Çay',
   ];
   List<String> _filteredItems = [];
   bool _isSearchVisible = false;
   String selectedCategory = '';
+
+  Map<String, String> priceDetails = {
+    'Limonlu Buzlu Çay': '80',
+    'Şeftalili Buzlu Çay': '80',
+    'Yaseminli Soğuk Çay': '90',
+    'Yeşil Soğuk Çay': '90',
+    'Berry Mix Soğuk Çay': '100',
+    'Matcha Soğuk Çay': '100',
+  };
 
   @override
   void initState() {
@@ -66,12 +75,12 @@ class _IceteaState extends State<Icetea> {
   }
 
   Map<String, String> coffeeImages = {
-    'Americano': 'assets/images/americano.png',
-    'Cappuccino': 'assets/images/cappuccino.png',
-    'Latte': 'assets/images/latte.png',
-    'Mocha': 'assets/images/mocha.png',
-    'Macchiato': 'assets/images/macchiato.png',
-    'Espresso': 'assets/images/espresso.png',
+    'Limonlu Buzlu Çay': 'assets/images/americano.png',
+    'Şeftalili Buzlu Çay': 'assets/images/cappuccino.png',
+    'Yaseminli Soğuk Çay': 'assets/images/latte.png',
+    'Yeşil Soğuk Çay': 'assets/images/mocha.png',
+    'Berry Mix Soğuk Çay': 'assets/images/macchiato.png',
+    'Matcha Soğuk Çay': 'assets/images/espresso.png',
   };
 
   @override
@@ -97,38 +106,18 @@ class _IceteaState extends State<Icetea> {
                   childAspectRatio: 0.7,
                 ),
                 itemBuilder: (context, index) {
-                  final title = _filteredItems[index];
-                  final imagePath =
-                      coffeeImages[title] ?? 'assets/images/default.jpg';
-
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder:
-                              (context) => MenuIcerikSf(
-                                title: title,
-                                description: 'Delicious coffee',
-                                price: '4.5',
-                                imageUrl: imagePath,
-                              ),
-                        ),
-                      );
-                    },
-                    child: _coffeeItem(
-                      title: title,
-                      description: 'Delicious coffee',
-                      price: '4.5',
-                    ),
+                  return _coffeeItem(
+                    title: _filteredItems[index],
+                    description: '',
+                    price: priceDetails[_filteredItems[index]] ?? '0',
                   );
                 },
               ),
             ),
             Positioned(
-              top: 0,
+              top: 60,
               bottom: 0,
-              left: 0,
+              left: -5,
               child: Container(
                 width: 65,
                 decoration: const BoxDecoration(
@@ -141,15 +130,15 @@ class _IceteaState extends State<Icetea> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _rotatedCategory('Bakery', false),
+                    _rotatedCategory('Atıştırmalıklar', false),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Hot coffees', false),
+                    _rotatedCategory('Sıcak Kahveler', false),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Ice coffees', false),
+                    _rotatedCategory('Soğuk Kahveler', false),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Hot teas', false),
+                    _rotatedCategory('Sıcak Çaylar', false),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Ice teas', true),
+                    _rotatedCategory('Soğuk Çaylar', true),
                   ],
                 ),
               ),
@@ -159,7 +148,7 @@ class _IceteaState extends State<Icetea> {
               left: 0,
               right: 0,
               child: Container(
-                height: 80,
+                height: 60,
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 color: Colors.white,
                 child: Row(
@@ -188,7 +177,7 @@ class _IceteaState extends State<Icetea> {
             Positioned(
               top: 80,
               left: 65,
-              right: 16,
+              right: 20,
               child: Visibility(
                 visible: _isSearchVisible,
                 child: Container(
@@ -299,8 +288,7 @@ class _IceteaState extends State<Icetea> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder:
-                    (context) => Frame9(), // Giriş sayfasına yönlendir
+                builder: (context) => Frame9(), // Giriş sayfasına yönlendir
               ),
             );
           }
@@ -316,43 +304,61 @@ class _IceteaState extends State<Icetea> {
   }) {
     String imagePath = coffeeImages[title] ?? 'assets/images/default.jpg';
 
-    return Container(
-      margin: const EdgeInsets.all(6),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              width: 100,
-              height: 100,
-              color: Colors.brown[200],
-              child: Image.asset(imagePath, fit: BoxFit.cover),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder:
+                (_) => MenuIcerikSf(
+                  title: title,
+                  description: description,
+                  price: price,
+                  imageUrl: imagePath,
+                ),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.all(6),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Container(
+                width: 100,
+                height: 100,
+                color: Colors.brown[200],
+                child: Image.asset(imagePath, fit: BoxFit.cover),
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
+            const SizedBox(height: 8),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          Text(description, style: const TextStyle(color: Colors.redAccent)),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('\$ $price', style: const TextStyle(color: Colors.grey)),
-              const SizedBox(width: 4),
-              const Icon(Icons.star, color: Colors.orange, size: 16),
-            ],
-          ),
-        ],
+            if (description.isNotEmpty)
+              Text(
+                description,
+                style: const TextStyle(color: Colors.redAccent),
+              ),
+            const SizedBox(height: 4),
+            Text('${price} TL', style: const TextStyle(color: Colors.grey)),
+          ],
+        ),
       ),
     );
   }
@@ -361,33 +367,31 @@ class _IceteaState extends State<Icetea> {
     return GestureDetector(
       onTap: () {
         _filterByCategory(label);
-        if (label == 'Ice coffees') {
+        if (label == 'Soğuk Kahveler') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Icecoffee()),
           );
-        } else if (label == 'Hot coffees') {
+        } else if (label == 'Sıcak Kahveler') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Hotcoffee()),
           );
-        } else if (label == 'Ice teas') {
+        } else if (label == 'Soğuk Çaylar') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Icetea()),
           );
-        } else if (label == 'Hot teas') {
+        } else if (label == 'Sıcak Çaylar') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Hottea()),
           );
-        } else if (label == 'Bakery') {
+        } else if (label == 'Atıştırmalıklar') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Bakery()),
           );
-        } else {
-          _filterByCategory(label);
         }
       },
       child: RotatedBox(
