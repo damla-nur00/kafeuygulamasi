@@ -28,9 +28,19 @@ class _BakeryState extends State<Bakery> {
     'Supangle',
     'Brownie',
   ];
+
   List<String> _filteredItems = [];
   bool _isSearchVisible = false;
   String selectedCategory = '';
+
+  Map<String, String> priceDetails = {
+    'Soğuk Sandviç': '90',
+    'Kumru': '90',
+    '3 Peynirli Bagel': '80',
+    'Chesscake': '80',
+    'Supangle': '90',
+    'Brownie': '90',
+  };
 
   @override
   void initState() {
@@ -97,37 +107,18 @@ class _BakeryState extends State<Bakery> {
                   childAspectRatio: 0.7,
                 ),
                 itemBuilder: (context, index) {
-                  String item = _filteredItems[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder:
-                              (context) => MenuIcerik2Sf(
-                                title: item,
-                                description: 'Lezzetli bir fırın ürünü',
-                                price: '4.5',
-                                imageUrl:
-                                    coffeeImages[item] ??
-                                    'assets/images/default.jpg',
-                              ),
-                        ),
-                      );
-                    },
-                    child: _coffeeItem(
-                      title: item,
-                      description: 'Delicious item',
-                      price: '4.5',
-                    ),
+                  return _coffeeItem(
+                    title: _filteredItems[index],
+                    description: '',
+                    price: priceDetails[_filteredItems[index]] ?? '0',
                   );
                 },
               ),
             ),
             Positioned(
-              top: 0,
+              top: 60,
               bottom: 0,
-              left: 0,
+              left: -5,
               child: Container(
                 width: 65,
                 decoration: const BoxDecoration(
@@ -140,15 +131,15 @@ class _BakeryState extends State<Bakery> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _rotatedCategory('Bakery', true),
+                    _rotatedCategory('Atıştırmalıklar', true),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Hot coffees', false),
+                    _rotatedCategory('Sıcak Kahveler', false),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Ice coffees', false),
+                    _rotatedCategory('Soğuk Kahveler', false),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Hot teas', false),
+                    _rotatedCategory('Sıcak Çaylar', false),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Ice teas', false),
+                    _rotatedCategory('Soğuk Çaylar', false),
                   ],
                 ),
               ),
@@ -158,7 +149,7 @@ class _BakeryState extends State<Bakery> {
               left: 0,
               right: 0,
               child: Container(
-                height: 80,
+                height: 60,
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 color: Colors.white,
                 child: Row(
@@ -187,7 +178,7 @@ class _BakeryState extends State<Bakery> {
             Positioned(
               top: 80,
               left: 65,
-              right: 16,
+              right: 20,
               child: Visibility(
                 visible: _isSearchVisible,
                 child: Container(
@@ -237,7 +228,6 @@ class _BakeryState extends State<Bakery> {
                     ],
                   ),
                   child: ListView.builder(
-                    shrinkWrap: true,
                     itemCount: _filteredItems.length,
                     itemBuilder: (context, index) {
                       return ListTile(
@@ -297,8 +287,7 @@ class _BakeryState extends State<Bakery> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder:
-                    (context) => Frame9(), // Giriş sayfasına yönlendir
+                builder: (context) => Frame9(), // Giriş sayfasına yönlendir
               ),
             );
           }
@@ -314,73 +303,93 @@ class _BakeryState extends State<Bakery> {
   }) {
     String imagePath = coffeeImages[title] ?? 'assets/images/default.jpg';
 
-    return Container(
-      margin: const EdgeInsets.all(6),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              width: 100,
-              height: 100,
-              color: Colors.brown[200],
-              child: Image.asset(imagePath, fit: BoxFit.cover),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder:
+                (_) => MenuIcerik2Sf(
+                  title: title,
+                  description: description,
+                  price: price,
+                  imageUrl: imagePath,
+                ),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.all(6),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Container(
+                width: 100,
+                height: 100,
+                color: Colors.brown[200],
+                child: Image.asset(imagePath, fit: BoxFit.cover),
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
+            const SizedBox(height: 8),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          Text(description, style: const TextStyle(color: Colors.redAccent)),
-          const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('₺ $price', style: const TextStyle(color: Colors.grey)),
-              const SizedBox(width: 4),
-              const Icon(Icons.star, color: Colors.orange, size: 16),
-            ],
-          ),
-        ],
+            if (description.isNotEmpty)
+              Text(
+                description,
+                style: const TextStyle(color: Colors.redAccent),
+              ),
+            const SizedBox(height: 4),
+            Text('${price} TL', style: const TextStyle(color: Colors.grey)),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _rotatedCategory(String label, bool isSelected) {
+  Widget _rotatedCategory(String label, bool isHotCoffee) {
     return GestureDetector(
       onTap: () {
         _filterByCategory(label);
-        Widget? target;
-        switch (label) {
-          case 'Ice coffees':
-            target = const Icecoffee();
-            break;
-          case 'Hot coffees':
-            target = const Hotcoffee();
-            break;
-          case 'Ice teas':
-            target = const Icetea();
-            break;
-          case 'Hot teas':
-            target = const Hottea();
-            break;
-          case 'Bakery':
-            target = const Bakery();
-            break;
-        }
-        if (target != null) {
+        if (label == 'Soğuk Kahveler') {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => target!),
+            MaterialPageRoute(builder: (context) => const Icecoffee()),
+          );
+        } else if (label == 'Sıcak Kahveler') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Hotcoffee()),
+          );
+        } else if (label == 'Soğuk Çaylar') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Icetea()),
+          );
+        } else if (label == 'Sıcak Çaylar') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Hottea()),
+          );
+        } else if (label == 'Atıştırmalıklar') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Bakery()),
           );
         }
       },
@@ -389,7 +398,7 @@ class _BakeryState extends State<Bakery> {
         child: Text(
           label,
           style: TextStyle(
-            color: isSelected ? Colors.white : const Color(0xFFE2DD8C),
+            color: isHotCoffee ? Colors.white : const Color(0xFFE2DD8C),
             fontSize: 14,
             fontFamily: 'Jaini Purva',
           ),
