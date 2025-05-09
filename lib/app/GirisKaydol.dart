@@ -1,13 +1,13 @@
 //GirisKaydol.dart
 import 'package:flutter/material.dart';
 import 'frame9.dart';
+import 'menu_icerik_sf.dart';
 import 'sepetim_sf.dart';
 import 'bakery.dart';
 import 'satinal.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'Hosgeldin.dart';
 import 'package:flutter/services.dart'; // inputFormatters için gerekli
 import 'package:flutter/services.dart'; // inputFormatters için gerekli
 
