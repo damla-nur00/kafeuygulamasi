@@ -19,16 +19,25 @@ class Hottea extends StatefulWidget {
 class _HotteaState extends State<Hottea> {
   TextEditingController _searchController = TextEditingController();
   List<String> _coffeeItems = [
-    'Americano',
-    'Cappuccino',
-    'Latte',
-    'Mocha',
-    'Macchiato',
-    'Espresso',
+    'Earl Grey',
+    'Chai Tea',
+    'Çay',
+    'Yasemin Çayı',
+    'Papatya Çayı',
+    'Yeşil Çay',
   ];
   List<String> _filteredItems = [];
   bool _isSearchVisible = false;
   String selectedCategory = '';
+
+  Map<String, String> priceDetails = {
+    'Earl Grey': '90',
+    'Chai Tea': '80',
+    'Çay': '70',
+    'Yasemin Çayı': '80',
+    'Papatya Çayı': '80',
+    'Yeşil Çay': '80',
+  };
 
   @override
   void initState() {
@@ -64,12 +73,12 @@ class _HotteaState extends State<Hottea> {
   }
 
   Map<String, String> coffeeImages = {
-    'Americano': 'assets/images/americano.png',
-    'Cappuccino': 'assets/images/cappuccino.png',
-    'Latte': 'assets/images/latte.png',
-    'Mocha': 'assets/images/mocha.png',
-    'Macchiato': 'assets/images/macchiato.png',
-    'Espresso': 'assets/images/espresso.png',
+    'Earl Grey': 'assets/images/americano.png',
+    'Chai Tea': 'assets/images/cappuccino.png',
+    'Çay': 'assets/images/latte.png',
+    'Yasemin Çayı': 'assets/images/mocha.png',
+    'Papatya Çayı': 'assets/images/macchiato.png',
+    'Yeşil Çay': 'assets/images/espresso.png',
   };
 
   @override
@@ -97,16 +106,16 @@ class _HotteaState extends State<Hottea> {
                 itemBuilder: (context, index) {
                   return _coffeeItem(
                     title: _filteredItems[index],
-                    description: 'Delicious tea',
-                    price: '4.5',
+                    description: '',
+                    price: priceDetails[_filteredItems[index]] ?? '0',
                   );
                 },
               ),
             ),
             Positioned(
-              top: 0,
+              top: 60,
               bottom: 0,
-              left: 0,
+              left: -5,
               child: Container(
                 width: 65,
                 decoration: const BoxDecoration(
@@ -119,15 +128,15 @@ class _HotteaState extends State<Hottea> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _rotatedCategory('Bakery', false),
+                    _rotatedCategory('Atıştırmalıklar', false),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Hot coffees', false),
+                    _rotatedCategory('Sıcak Kahveler', false),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Ice coffees', false),
+                    _rotatedCategory('Soğuk Kahveler', false),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Hot teas', true),
+                    _rotatedCategory('Sıcak Çaylar', true),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Ice teas', false),
+                    _rotatedCategory('Soğuk Çaylar', false),
                   ],
                 ),
               ),
@@ -137,7 +146,7 @@ class _HotteaState extends State<Hottea> {
               left: 0,
               right: 0,
               child: Container(
-                height: 80,
+                height: 60,
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 color: Colors.white,
                 child: Row(
@@ -166,7 +175,7 @@ class _HotteaState extends State<Hottea> {
             Positioned(
               top: 80,
               left: 65,
-              right: 16,
+              right: 20,
               child: Visibility(
                 visible: _isSearchVisible,
                 child: Container(
@@ -277,8 +286,7 @@ class _HotteaState extends State<Hottea> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder:
-                    (context) => Frame9(), // Giriş sayfasına yönlendir
+                builder: (context) => Frame9(), // Giriş sayfasına yönlendir
               ),
             );
           }
@@ -317,6 +325,8 @@ class _HotteaState extends State<Hottea> {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -330,21 +340,21 @@ class _HotteaState extends State<Hottea> {
             const SizedBox(height: 8),
             Text(
               title,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(description, style: const TextStyle(color: Colors.redAccent)),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('\$price', style: const TextStyle(color: Colors.grey)),
-                const SizedBox(width: 4),
-                const Icon(Icons.star, color: Colors.orange, size: 16),
-              ],
-            ),
+            if (description.isNotEmpty)
+              Text(
+                description,
+                style: const TextStyle(color: Colors.redAccent),
+              ),
+            const SizedBox(height: 4),
+            Text('${price} TL', style: const TextStyle(color: Colors.grey)),
           ],
         ),
       ),
@@ -355,27 +365,27 @@ class _HotteaState extends State<Hottea> {
     return GestureDetector(
       onTap: () {
         _filterByCategory(label);
-        if (label == 'Ice coffees') {
+        if (label == 'Soğuk Kahveler') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Icecoffee()),
           );
-        } else if (label == 'Hot coffees') {
+        } else if (label == 'Sıcak Kahveler') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Hotcoffee()),
           );
-        } else if (label == 'Ice teas') {
+        } else if (label == 'Soğuk Çaylar') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Icetea()),
           );
-        } else if (label == 'Hot teas') {
+        } else if (label == 'Sıcak Çaylar') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Hottea()),
           );
-        } else if (label == 'Bakery') {
+        } else if (label == 'Atıştırmalıklar') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Bakery()),
