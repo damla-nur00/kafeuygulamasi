@@ -7,7 +7,6 @@ import 'hottea.dart';
 import 'bakery.dart';
 import 'icetea.dart';
 import 'menu_icerik_sf.dart';
-
 import 'sepetim_sf.dart';
 import 'GirisKaydol.dart';
 
@@ -24,13 +23,22 @@ class _HotcoffeeState extends State<Hotcoffee> {
     'Americano',
     'Cappuccino',
     'Latte',
-    'Mocha',
-    'Macchiato',
+    'White Chocolate Mocha',
+    'Caramel Macchiato',
     'Türk Kahvesi',
   ];
   List<String> _filteredItems = [];
   bool _isSearchVisible = false;
   String selectedCategory = '';
+
+  Map<String, String> priceDetails = {
+    'Americano': '80',
+    'Cappuccino': '90',
+    'Latte': '90',
+    'White Chocolate Mocha': '100',
+    'Caramel Macchiato': '100',
+    'Türk Kahvesi': '80',
+  };
 
   @override
   void initState() {
@@ -69,8 +77,8 @@ class _HotcoffeeState extends State<Hotcoffee> {
     'Americano': 'assets/images/americano.png',
     'Cappuccino': 'assets/images/cappuccino.png',
     'Latte': 'assets/images/latte.png',
-    'Mocha': 'assets/images/mocha.png',
-    'Macchiato': 'assets/images/macchiato.png',
+    'White Chocolate Mocha': 'assets/images/mocha.png',
+    'Caramel Macchiato': 'assets/images/macchiato.png',
     'Türk Kahvesi': 'assets/images/espresso.png',
   };
 
@@ -99,16 +107,16 @@ class _HotcoffeeState extends State<Hotcoffee> {
                 itemBuilder: (context, index) {
                   return _coffeeItem(
                     title: _filteredItems[index],
-                    description: 'Delicious coffee',
-                    price: '4.5',
+                    description: '',
+                    price: priceDetails[_filteredItems[index]] ?? '0',
                   );
                 },
               ),
             ),
             Positioned(
-              top: 0,
+              top: 60,
               bottom: 0,
-              left: 0,
+              left: -5,
               child: Container(
                 width: 65,
                 decoration: const BoxDecoration(
@@ -121,15 +129,15 @@ class _HotcoffeeState extends State<Hotcoffee> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _rotatedCategory('Bakery', false),
+                    _rotatedCategory('Atıştırmalıklar', false),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Hot coffees', true),
+                    _rotatedCategory('Sıcak Kahveler', true),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Ice coffees', false),
+                    _rotatedCategory('Soğuk Kahveler', false),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Hot teas', false),
+                    _rotatedCategory('Sıcak Çaylar', false),
                     const SizedBox(height: 20),
-                    _rotatedCategory('Ice teas', false),
+                    _rotatedCategory('Soğuk Çaylar', false),
                   ],
                 ),
               ),
@@ -139,7 +147,7 @@ class _HotcoffeeState extends State<Hotcoffee> {
               left: 0,
               right: 0,
               child: Container(
-                height: 80,
+                height: 60,
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 color: Colors.white,
                 child: Row(
@@ -168,7 +176,7 @@ class _HotcoffeeState extends State<Hotcoffee> {
             Positioned(
               top: 80,
               left: 65,
-              right: 16,
+              right: 20,
               child: Visibility(
                 visible: _isSearchVisible,
                 child: Container(
@@ -278,8 +286,7 @@ class _HotcoffeeState extends State<Hotcoffee> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder:
-                    (context) => Frame9(), // Giriş sayfasına yönlendir
+                builder: (context) => Frame9(), // Giriş sayfasına yönlendir
               ),
             );
           }
@@ -318,6 +325,8 @@ class _HotcoffeeState extends State<Hotcoffee> {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -331,21 +340,21 @@ class _HotcoffeeState extends State<Hotcoffee> {
             const SizedBox(height: 8),
             Text(
               title,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(description, style: const TextStyle(color: Colors.redAccent)),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('\$price', style: const TextStyle(color: Colors.grey)),
-                const SizedBox(width: 4),
-                const Icon(Icons.star, color: Colors.orange, size: 16),
-              ],
-            ),
+            if (description.isNotEmpty)
+              Text(
+                description,
+                style: const TextStyle(color: Colors.redAccent),
+              ),
+            const SizedBox(height: 4),
+            Text('${price} TL', style: const TextStyle(color: Colors.grey)),
           ],
         ),
       ),
@@ -356,27 +365,27 @@ class _HotcoffeeState extends State<Hotcoffee> {
     return GestureDetector(
       onTap: () {
         _filterByCategory(label);
-        if (label == 'Ice coffees') {
+        if (label == 'Soğuk Kahveler') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Icecoffee()),
           );
-        } else if (label == 'Hot coffees') {
+        } else if (label == 'Sıcak Kahveler') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Hotcoffee()),
           );
-        } else if (label == 'Ice teas') {
+        } else if (label == 'Soğuk Çaylar') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Icetea()),
           );
-        } else if (label == 'Hot teas') {
+        } else if (label == 'Sıcak Çaylar') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Hottea()),
           );
-        } else if (label == 'Bakery') {
+        } else if (label == 'Atıştırmalıklar') {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Bakery()),
