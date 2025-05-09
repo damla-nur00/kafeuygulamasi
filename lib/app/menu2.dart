@@ -23,6 +23,40 @@ class MenuIcerik2Sf extends StatefulWidget {
 
 class _MenuIcerikSfState extends State<MenuIcerik2Sf> {
   final String _selectedSize = 'Standart'; // Tek boyut sabitlendi
+  String _coffeeDescription = 'Delicious coffee'; // Default description
+  double updatedPrice = 0;
+
+  Map<String, String> priceDetails = {
+    'Soğuk Sandviç': '90',
+    'Kumru': '90',
+    '3 Peynirli Bagel': '80',
+    'Chesscake': '80',
+    'Supangle': '90',
+    'Brownie': '90',
+  };
+
+  Map<String, String> descriptionDetails = {
+    'Soğuk Sandviç':
+        'Soğuk suyla karıştırılmış güçlü espresso, ferahlatıcı ve yoğun bir tat sunar.',
+    'Kumru':
+        'Soğuk süt, köpük ve espresso ile hazırlanan kremamsı ve hafif acı bir içecek.',
+    '3 Peynirli Bagel':
+        'Soğuk süt ve espresso karışımı, hafif ve yumuşak bir kahve deneyimi sunar.',
+    'Chesscake':
+        'Çikolata şurubu ve espresso karışımı, tatlı ve kahve severler için mükemmel bir içecek.',
+    'Supangle':
+        'Soğuk süt ve espresso ile yapılan yoğun kahve tadı ve hafif süt aromasıyla serinletici bir içecek.',
+    'Brownie':
+        'Buzlu, kremalı espresso karışımı, enerjik ve ferahlatıcı bir yaz içeceğidir.',
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    // Gelen title üzerinden açıklama ve fiyat belirleniyor
+    _coffeeDescription = descriptionDetails[widget.title] ?? _coffeeDescription;
+    updatedPrice = double.tryParse(priceDetails[widget.title] ?? '0') ?? 0;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +91,8 @@ class _MenuIcerikSfState extends State<MenuIcerik2Sf> {
                       ),
                     ),
                     Positioned(
-                      left: 25,
-                      top: 347,
+                      left: 30,
+                      top: 350,
                       child: SizedBox(
                         width: 200,
                         child: Text(
@@ -71,26 +105,14 @@ class _MenuIcerikSfState extends State<MenuIcerik2Sf> {
                         ),
                       ),
                     ),
+
                     Positioned(
-                      left: 21,
-                      top: 371,
-                      child: Row(
-                        children: const [
-                          Icon(Icons.star,
-                              color: Color.fromARGB(255, 246, 215, 15),
-                              size: 20),
-                          SizedBox(width: 4),
-                          Text("4.5", style: TextStyle(color: Colors.black)),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      left: 35,
-                      top: 440,
+                      left: 30,
+                      top: 380,
                       child: SizedBox(
                         width: 300,
                         child: Text(
-                          widget.description,
+                          _coffeeDescription,
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 13,
@@ -114,17 +136,17 @@ class _MenuIcerikSfState extends State<MenuIcerik2Sf> {
                         ),
                       ),
                     ),
+
                     // 👇 Bu kısım tamamen kaldırıldı: Choose Size
                     // Eğer sadece görünüm olarak kalsın istersen tekrar ekleyebiliriz
-
                     Positioned(
                       left: 62,
-                      top: 765,
+                      top: 780,
                       child: Text(
-                        'Price\n${widget.price} TL',
+                        '${updatedPrice.toStringAsFixed(2)} TL',
                         style: const TextStyle(
                           color: Colors.black,
-                          fontSize: 14,
+                          fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -141,26 +163,27 @@ class _MenuIcerikSfState extends State<MenuIcerik2Sf> {
                           minimumSize: const Size(170, 55),
                         ),
                         onPressed: () {
-                          CartData.addItem(CartItem(
-                            name: widget.title,
-                            price: widget.price,
-                            imagePath: widget.imageUrl,
-                            size: _selectedSize,
-                          ));
+                          CartData.addItem(
+                            CartItem(
+                              name: widget.title,
+                              price: updatedPrice.toStringAsFixed(2),
+                              imagePath: widget.imageUrl,
+                              size: _selectedSize,
+                            ),
+                          );
 
+                          // SnackBar ile kullanıcıyı bilgilendir
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                  '${widget.title} ($_selectedSize) sepete eklendi.'),
+                                '${widget.title} ($_selectedSize) sepete eklendi.',
+                              ),
                             ),
                           );
                         },
                         child: const Text(
-                          'Buy Now',
-                          style: TextStyle(
-                            color: Color(0xFFA47F4B),
-                            fontSize: 20,
-                          ),
+                          'Sepete Ekle',
+                          style: TextStyle(color: Colors.white70, fontSize: 20),
                         ),
                       ),
                     ),
@@ -174,3 +197,5 @@ class _MenuIcerikSfState extends State<MenuIcerik2Sf> {
     );
   }
 }
+
+//menu2.dart
