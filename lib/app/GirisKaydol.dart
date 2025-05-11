@@ -1,15 +1,9 @@
-//GirisKaydol.dart
 import 'package:flutter/material.dart';
-import 'frame9.dart';
-import 'menu_icerik_sf.dart';
-import 'sepetim_sf.dart';
 import 'bakery.dart';
-import 'satinal.dart';
-import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart'; // inputFormatters için gerekli
-import 'package:flutter/services.dart'; // inputFormatters için gerekli
+
 
 // Giriş Yapma Fonksiyonu
 Future<void> girisYap({
@@ -134,11 +128,11 @@ class _GirisKaydolState extends State<GirisKaydol> {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 0,
-          automaticallyImplyLeading: false, // Geri butonunu gizler
+          automaticallyImplyLeading: false, 
         title: const Text(
           'THE Coffee',
           style: TextStyle(
-            color: Color(0xFFF05454),
+            color: Color.fromARGB(255, 141, 107, 69),
             fontSize: 32,
             fontWeight: FontWeight.bold,
             shadows: [
@@ -217,6 +211,7 @@ class _GirisKaydolState extends State<GirisKaydol> {
                         style: TextStyle(
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w300,
+                          color: Colors.black87,
                         ),
                       ),
                     ),
@@ -279,6 +274,7 @@ class _GirisKaydolState extends State<GirisKaydol> {
                         style: TextStyle(
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w300,
+                          color: Colors.black87,
                         ),
                       ),
                     ),
@@ -289,7 +285,6 @@ class _GirisKaydolState extends State<GirisKaydol> {
           ),
         ),
       ),
-      
     );
   }
 
@@ -321,7 +316,7 @@ class _GirisKaydolState extends State<GirisKaydol> {
           obscureText: obscureText,
           maxLength: maxLength,
           keyboardType: keyboardType,
-          inputFormatters: [inputFormatter], // Verilen formatı kullanıyoruz
+          inputFormatters: [inputFormatter], 
           style: TextStyle(
             fontSize: 18,
             color: Color.fromARGB(255, 31, 24, 24),
@@ -344,7 +339,7 @@ class _GirisKaydolState extends State<GirisKaydol> {
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFFE16076),
+          backgroundColor: Color.fromARGB(255, 163, 120, 74),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
