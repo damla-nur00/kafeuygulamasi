@@ -1,14 +1,11 @@
-//hotcoffee.dart
 import 'package:flutter/material.dart';
 import 'frame9.dart';
-
 import 'icecoffee.dart';
 import 'hottea.dart';
 import 'bakery.dart';
 import 'icetea.dart';
 import 'menu_icerik_sf.dart';
 import 'sepetim_sf.dart';
-import 'GirisKaydol.dart';
 
 class Hotcoffee extends StatefulWidget {
   const Hotcoffee({super.key});
@@ -27,6 +24,7 @@ class _HotcoffeeState extends State<Hotcoffee> {
     'Caramel Macchiato',
     'Türk Kahvesi',
   ];
+
   List<String> _filteredItems = [];
   bool _isSearchVisible = false;
   String selectedCategory = '';
@@ -40,7 +38,16 @@ class _HotcoffeeState extends State<Hotcoffee> {
     'Türk Kahvesi': '80',
   };
 
-  @override
+ Map<String, String> coffeeImages = {
+    'Americano': 'assets/images/americano.png',
+    'Cappuccino': 'assets/images/cappuccino.png',
+    'Latte': 'assets/images/latte.png',
+    'White Chocolate Mocha': 'assets/images/whitechocolatemocha.png',
+    'Caramel Macchiato': 'assets/images/caramelmacchiato.png',
+    'Türk Kahvesi': 'assets/images/türkkahvesi.png',
+  };
+
+   @override
   void initState() {
     super.initState();
     _filteredItems = _coffeeItems;
@@ -48,10 +55,9 @@ class _HotcoffeeState extends State<Hotcoffee> {
 
   void _filterSearchResults(String query) {
     setState(() {
-      _filteredItems =
-          _coffeeItems
-              .where((item) => item.toLowerCase().contains(query.toLowerCase()))
-              .toList();
+      _filteredItems = _coffeeItems
+          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+          .toList();
     });
   }
 
@@ -66,21 +72,12 @@ class _HotcoffeeState extends State<Hotcoffee> {
   void _filterByCategory(String category) {
     setState(() {
       selectedCategory = category;
-      _filteredItems =
-          _coffeeItems.where((item) {
-            return item.toLowerCase().contains(category.toLowerCase());
-          }).toList();
+      _filteredItems = _coffeeItems
+          .where((item) =>
+              item.toLowerCase().contains(category.toLowerCase()))
+          .toList();
     });
   }
-
-  Map<String, String> coffeeImages = {
-    'Americano': 'assets/images/americano.png',
-    'Cappuccino': 'assets/images/cappuccino.png',
-    'Latte': 'assets/images/latte.png',
-    'White Chocolate Mocha': 'assets/images/mocha.png',
-    'Caramel Macchiato': 'assets/images/macchiato.png',
-    'Türk Kahvesi': 'assets/images/espresso.png',
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +110,7 @@ class _HotcoffeeState extends State<Hotcoffee> {
                 },
               ),
             ),
+            // Sol kategori menüsü
             Positioned(
               top: 60,
               bottom: 0,
@@ -120,7 +118,7 @@ class _HotcoffeeState extends State<Hotcoffee> {
               child: Container(
                 width: 65,
                 decoration: const BoxDecoration(
-                  color: Color(0xFFE16076),
+                  color: Color.fromARGB(255, 79, 52, 35),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(50),
                     bottomRight: Radius.circular(50),
@@ -142,6 +140,7 @@ class _HotcoffeeState extends State<Hotcoffee> {
                 ),
               ),
             ),
+            // Üst bar
             Positioned(
               top: 0,
               left: 0,
@@ -164,7 +163,7 @@ class _HotcoffeeState extends State<Hotcoffee> {
                     const Text(
                       'THE Coffee',
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 141, 107, 69),
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
@@ -173,12 +172,12 @@ class _HotcoffeeState extends State<Hotcoffee> {
                 ),
               ),
             ),
-            Positioned(
-              top: 80,
-              left: 65,
-              right: 20,
-              child: Visibility(
-                visible: _isSearchVisible,
+            // Arama kutusu
+            if (_isSearchVisible)
+              Positioned(
+                top: 13,
+                left: 65,
+                right: 20,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   decoration: BoxDecoration(
@@ -205,15 +204,15 @@ class _HotcoffeeState extends State<Hotcoffee> {
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              top: 140,
-              left: 65,
-              right: 16,
-              child: Visibility(
-                visible: _isSearchVisible && _filteredItems.isNotEmpty,
+            // Arama alt liste
+            if (_isSearchVisible)
+              Positioned(
+                top: 60,
+                left: 65,
+                right: 20,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  height: 200,
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8),
@@ -226,7 +225,6 @@ class _HotcoffeeState extends State<Hotcoffee> {
                     ],
                   ),
                   child: ListView.builder(
-                    shrinkWrap: true,
                     itemCount: _filteredItems.length,
                     itemBuilder: (context, index) {
                       return ListTile(
@@ -243,13 +241,13 @@ class _HotcoffeeState extends State<Hotcoffee> {
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),
+
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFFAA6DC0),
+        backgroundColor: const Color.fromARGB(255, 181, 164, 144),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         showSelectedLabels: false,
@@ -260,15 +258,15 @@ class _HotcoffeeState extends State<Hotcoffee> {
             label: 'Cart',
           ),
           BottomNavigationBarItem(
-            icon: Text('🕹️', style: TextStyle(fontSize: 30)),
+            icon: Text('🎮', style: TextStyle(fontSize: 30)),
             label: 'Joystick',
           ),
           BottomNavigationBarItem(
-            icon: Text('🕹️', style: TextStyle(fontSize: 30)),
+            icon: Text('🎮', style: TextStyle(fontSize: 30)),
             label: 'Joystick',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.exit_to_app), // Çıkış ikonu
+            icon: Icon(Icons.exit_to_app), 
             label: 'Exit',
           ),
         ],
@@ -281,12 +279,11 @@ class _HotcoffeeState extends State<Hotcoffee> {
               ), // Sepetim sayfasına yönlendir
             );
           } else if (index == 3) {
-            // Çıkış yapıldığında
-            // Çıkış işlemi yapılabilir, örneğin kullanıcıyı giriş sayfasına yönlendirebilirsiniz:
+            // Çıkış yapıldığında kullanıcıyı giriş sayfasına yönlendir
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => Frame9(), // Giriş sayfasına yönlendir
+                builder: (context) => Frame9(), 
               ),
             );
           }
@@ -361,7 +358,7 @@ class _HotcoffeeState extends State<Hotcoffee> {
     );
   }
 
-  Widget _rotatedCategory(String label, bool isHotCoffee) {
+  Widget _rotatedCategory(String label, bool isActive) {
     return GestureDetector(
       onTap: () {
         _filterByCategory(label);
@@ -397,7 +394,7 @@ class _HotcoffeeState extends State<Hotcoffee> {
         child: Text(
           label,
           style: TextStyle(
-            color: isHotCoffee ? Colors.white : const Color(0xFFE2DD8C),
+            color: isActive ? const Color.fromARGB(255, 255, 255, 255) : const Color.fromARGB(205, 243, 204, 178),
             fontSize: 14,
             fontFamily: 'Jaini Purva',
           ),
