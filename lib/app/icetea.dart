@@ -1,4 +1,3 @@
-//ıcetea.dart
 import 'package:flutter/material.dart';
 import 'icecoffee.dart';
 import 'hotcoffee.dart';
@@ -7,7 +6,6 @@ import 'bakery.dart';
 import 'frame9.dart';
 import 'menu_icerik_sf.dart';
 import 'sepetim_sf.dart';
-import 'GirisKaydol.dart';
 
 class Icetea extends StatefulWidget {
   const Icetea({super.key});
@@ -19,24 +17,34 @@ class Icetea extends StatefulWidget {
 class _IceteaState extends State<Icetea> {
   TextEditingController _searchController = TextEditingController();
   List<String> _coffeeItems = [
-    'Limonlu Buzlu Çay',
-    'Şeftalili Buzlu Çay',
+    'Limonlu Soğuk Çay',
+    'Şeftalili Soğuk Çay',
     'Yaseminli Soğuk Çay',
     'Yeşil Soğuk Çay',
     'Berry Mix Soğuk Çay',
     'Matcha Soğuk Çay',
   ];
+
   List<String> _filteredItems = [];
   bool _isSearchVisible = false;
   String selectedCategory = '';
 
   Map<String, String> priceDetails = {
-    'Limonlu Buzlu Çay': '80',
-    'Şeftalili Buzlu Çay': '80',
+    'Limonlu Soğuk Çay': '80',
+    'Şeftalili Soğuk Çay': '80',
     'Yaseminli Soğuk Çay': '90',
     'Yeşil Soğuk Çay': '90',
     'Berry Mix Soğuk Çay': '100',
     'Matcha Soğuk Çay': '100',
+  };
+
+  Map<String, String> coffeeImages = {
+    'Limonlu Soğuk Çay': 'assets/images/limonlusogukcay.png',
+    'Şeftalili Soğuk Çay': 'assets/images/seftalilisogukcay.png',
+    'Yaseminli Soğuk Çay': 'assets/images/yaseminlisogukcay.png',
+    'Yeşil Soğuk Çay': 'assets/images/yesilsogukcay.png',
+    'Berry Mix Soğuk Çay': 'assets/images/berrymixsogukcay.png',
+    'Matcha Soğuk Çay': 'assets/images/matchasogukcay.png',
   };
 
   @override
@@ -47,10 +55,9 @@ class _IceteaState extends State<Icetea> {
 
   void _filterSearchResults(String query) {
     setState(() {
-      _filteredItems =
-          _coffeeItems
-              .where((item) => item.toLowerCase().contains(query.toLowerCase()))
-              .toList();
+      _filteredItems = _coffeeItems
+          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+          .toList();
     });
   }
 
@@ -65,23 +72,12 @@ class _IceteaState extends State<Icetea> {
   void _filterByCategory(String category) {
     setState(() {
       selectedCategory = category;
-      _filteredItems =
-          _coffeeItems
-              .where(
-                (item) => item.toLowerCase().contains(category.toLowerCase()),
-              )
-              .toList();
+      _filteredItems = _coffeeItems
+          .where((item) =>
+              item.toLowerCase().contains(category.toLowerCase()))
+          .toList();
     });
   }
-
-  Map<String, String> coffeeImages = {
-    'Limonlu Buzlu Çay': 'assets/images/americano.png',
-    'Şeftalili Buzlu Çay': 'assets/images/cappuccino.png',
-    'Yaseminli Soğuk Çay': 'assets/images/latte.png',
-    'Yeşil Soğuk Çay': 'assets/images/mocha.png',
-    'Berry Mix Soğuk Çay': 'assets/images/macchiato.png',
-    'Matcha Soğuk Çay': 'assets/images/espresso.png',
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -114,6 +110,7 @@ class _IceteaState extends State<Icetea> {
                 },
               ),
             ),
+            // Sol kategori menüsü
             Positioned(
               top: 60,
               bottom: 0,
@@ -121,7 +118,7 @@ class _IceteaState extends State<Icetea> {
               child: Container(
                 width: 65,
                 decoration: const BoxDecoration(
-                  color: Color(0xFFE16076),
+                  color: Color.fromARGB(255, 79, 52, 35),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(50),
                     bottomRight: Radius.circular(50),
@@ -143,6 +140,7 @@ class _IceteaState extends State<Icetea> {
                 ),
               ),
             ),
+            // Üst bar
             Positioned(
               top: 0,
               left: 0,
@@ -165,7 +163,7 @@ class _IceteaState extends State<Icetea> {
                     const Text(
                       'THE Coffee',
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 141, 107, 69),
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
@@ -174,12 +172,12 @@ class _IceteaState extends State<Icetea> {
                 ),
               ),
             ),
-            Positioned(
-              top: 80,
-              left: 65,
-              right: 20,
-              child: Visibility(
-                visible: _isSearchVisible,
+            // Arama kutusu
+            if (_isSearchVisible)
+              Positioned(
+                top: 13,
+                left: 65,
+                right: 20,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   decoration: BoxDecoration(
@@ -206,15 +204,15 @@ class _IceteaState extends State<Icetea> {
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              top: 140,
-              left: 65,
-              right: 16,
-              child: Visibility(
-                visible: _isSearchVisible && _filteredItems.isNotEmpty,
+            // Arama alt liste
+            if (_isSearchVisible)
+              Positioned(
+                top: 60,
+                left: 65,
+                right: 20,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  height: 200,
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8),
@@ -227,7 +225,6 @@ class _IceteaState extends State<Icetea> {
                     ],
                   ),
                   child: ListView.builder(
-                    shrinkWrap: true,
                     itemCount: _filteredItems.length,
                     itemBuilder: (context, index) {
                       return ListTile(
@@ -244,13 +241,13 @@ class _IceteaState extends State<Icetea> {
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),
+
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFFAA6DC0),
+        backgroundColor: const Color.fromARGB(255, 181, 164, 144),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         showSelectedLabels: false,
@@ -261,16 +258,16 @@ class _IceteaState extends State<Icetea> {
             label: 'Cart',
           ),
           BottomNavigationBarItem(
-            icon: Text('🕹️', style: TextStyle(fontSize: 30)),
+            icon: Text('🎮', style: TextStyle(fontSize: 30)),
             label: 'Joystick',
           ),
 
           BottomNavigationBarItem(
-            icon: Text('🕹️', style: TextStyle(fontSize: 30)),
+            icon: Text('🎮', style: TextStyle(fontSize: 30)),
             label: 'Joystick',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.exit_to_app), // Çıkış ikonu
+            icon: Icon(Icons.exit_to_app), 
             label: 'Exit',
           ),
         ],
@@ -283,12 +280,11 @@ class _IceteaState extends State<Icetea> {
               ), // Sepetim sayfasına yönlendir
             );
           } else if (index == 3) {
-            // Çıkış yapıldığında
-            // Çıkış işlemi yapılabilir, örneğin kullanıcıyı giriş sayfasına yönlendirebilirsiniz:
+            // Çıkış yapıldığında kullanıcıyı giriş sayfasına yönlendir
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => Frame9(), // Giriş sayfasına yönlendir
+                builder: (context) => Frame9(), 
               ),
             );
           }
@@ -363,7 +359,7 @@ class _IceteaState extends State<Icetea> {
     );
   }
 
-  Widget _rotatedCategory(String label, bool isIceTea) {
+  Widget _rotatedCategory(String label, bool isActive) {
     return GestureDetector(
       onTap: () {
         _filterByCategory(label);
@@ -399,7 +395,7 @@ class _IceteaState extends State<Icetea> {
         child: Text(
           label,
           style: TextStyle(
-            color: isIceTea ? Colors.white : const Color(0xFFE2DD8C),
+            color: isActive ? const Color.fromARGB(255, 255, 255, 255) : const Color.fromARGB(205, 243, 204, 178),
             fontSize: 14,
             fontFamily: 'Jaini Purva',
           ),
