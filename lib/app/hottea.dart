@@ -1,4 +1,3 @@
-//hottea.dart
 import 'package:flutter/material.dart';
 import 'icetea.dart';
 import 'frame9.dart';
@@ -7,7 +6,6 @@ import 'hotcoffee.dart';
 import 'bakery.dart';
 import 'menu_icerik_sf.dart';
 import 'sepetim_sf.dart';
-import 'GirisKaydol.dart';
 
 class Hottea extends StatefulWidget {
   const Hottea({super.key});
@@ -26,6 +24,7 @@ class _HotteaState extends State<Hottea> {
     'Papatya Çayı',
     'Yeşil Çay',
   ];
+
   List<String> _filteredItems = [];
   bool _isSearchVisible = false;
   String selectedCategory = '';
@@ -39,6 +38,15 @@ class _HotteaState extends State<Hottea> {
     'Yeşil Çay': '80',
   };
 
+  Map<String, String> coffeeImages = {
+    'Earl Grey': 'assets/images/earlgrey.png',
+    'Chai Tea': 'assets/images/chaitea.png',
+    'Çay': 'assets/images/cay.png',
+    'Yasemin Çayı': 'assets/images/yasemincayı.png',
+    'Papatya Çayı': 'assets/images/papatyacayı.png',
+    'Yeşil Çay': 'assets/images/yesilcay.png',
+  };
+
   @override
   void initState() {
     super.initState();
@@ -47,10 +55,9 @@ class _HotteaState extends State<Hottea> {
 
   void _filterSearchResults(String query) {
     setState(() {
-      _filteredItems =
-          _coffeeItems
-              .where((item) => item.toLowerCase().contains(query.toLowerCase()))
-              .toList();
+      _filteredItems = _coffeeItems
+          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+          .toList();
     });
   }
 
@@ -65,21 +72,12 @@ class _HotteaState extends State<Hottea> {
   void _filterByCategory(String category) {
     setState(() {
       selectedCategory = category;
-      _filteredItems =
-          _coffeeItems.where((item) {
-            return item.toLowerCase().contains(category.toLowerCase());
-          }).toList();
+      _filteredItems = _coffeeItems
+          .where((item) =>
+              item.toLowerCase().contains(category.toLowerCase()))
+          .toList();
     });
   }
-
-  Map<String, String> coffeeImages = {
-    'Earl Grey': 'assets/images/americano.png',
-    'Chai Tea': 'assets/images/cappuccino.png',
-    'Çay': 'assets/images/latte.png',
-    'Yasemin Çayı': 'assets/images/mocha.png',
-    'Papatya Çayı': 'assets/images/macchiato.png',
-    'Yeşil Çay': 'assets/images/espresso.png',
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +110,7 @@ class _HotteaState extends State<Hottea> {
                 },
               ),
             ),
+            // Sol kategori menüsü
             Positioned(
               top: 60,
               bottom: 0,
@@ -119,7 +118,7 @@ class _HotteaState extends State<Hottea> {
               child: Container(
                 width: 65,
                 decoration: const BoxDecoration(
-                  color: Color(0xFFE16076),
+                  color: Color.fromARGB(255, 79, 52, 35),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(50),
                     bottomRight: Radius.circular(50),
@@ -141,6 +140,7 @@ class _HotteaState extends State<Hottea> {
                 ),
               ),
             ),
+            // Üst bar
             Positioned(
               top: 0,
               left: 0,
@@ -163,7 +163,7 @@ class _HotteaState extends State<Hottea> {
                     const Text(
                       'THE Coffee',
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 141, 107, 69),
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
@@ -172,12 +172,12 @@ class _HotteaState extends State<Hottea> {
                 ),
               ),
             ),
-            Positioned(
-              top: 80,
-              left: 65,
-              right: 20,
-              child: Visibility(
-                visible: _isSearchVisible,
+            // Arama kutusu
+            if (_isSearchVisible)
+              Positioned(
+                top: 13,
+                left: 65,
+                right: 20,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   decoration: BoxDecoration(
@@ -204,15 +204,15 @@ class _HotteaState extends State<Hottea> {
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              top: 140,
-              left: 65,
-              right: 16,
-              child: Visibility(
-                visible: _isSearchVisible && _filteredItems.isNotEmpty,
+            // Arama alt liste
+            if (_isSearchVisible)
+              Positioned(
+                top: 60,
+                left: 65,
+                right: 20,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  height: 200,
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8),
@@ -225,7 +225,6 @@ class _HotteaState extends State<Hottea> {
                     ],
                   ),
                   child: ListView.builder(
-                    shrinkWrap: true,
                     itemCount: _filteredItems.length,
                     itemBuilder: (context, index) {
                       return ListTile(
@@ -242,13 +241,13 @@ class _HotteaState extends State<Hottea> {
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),
+
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFFAA6DC0),
+        backgroundColor: const Color.fromARGB(255, 181, 164, 144),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         showSelectedLabels: false,
@@ -259,16 +258,16 @@ class _HotteaState extends State<Hottea> {
             label: 'Cart',
           ),
           BottomNavigationBarItem(
-            icon: Text('🕹️', style: TextStyle(fontSize: 30)),
+            icon: Text('🎮', style: TextStyle(fontSize: 30)),
             label: 'Joystick',
           ),
 
           BottomNavigationBarItem(
-            icon: Text('🕹️', style: TextStyle(fontSize: 30)),
+            icon: Text('🎮', style: TextStyle(fontSize: 30)),
             label: 'Joystick',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.exit_to_app), // Çıkış ikonu
+            icon: Icon(Icons.exit_to_app),
             label: 'Exit',
           ),
         ],
@@ -281,12 +280,11 @@ class _HotteaState extends State<Hottea> {
               ), // Sepetim sayfasına yönlendir
             );
           } else if (index == 3) {
-            // Çıkış yapıldığında
-            // Çıkış işlemi yapılabilir, örneğin kullanıcıyı giriş sayfasına yönlendirebilirsiniz:
+            // Çıkış yapıldığında kullanıcıyı giriş sayfasına yönlendir
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => Frame9(), // Giriş sayfasına yönlendir
+                builder: (context) => Frame9(), 
               ),
             );
           }
@@ -361,7 +359,7 @@ class _HotteaState extends State<Hottea> {
     );
   }
 
-  Widget _rotatedCategory(String label, bool isHotTea) {
+  Widget _rotatedCategory(String label, bool isActive) {
     return GestureDetector(
       onTap: () {
         _filterByCategory(label);
@@ -397,7 +395,7 @@ class _HotteaState extends State<Hottea> {
         child: Text(
           label,
           style: TextStyle(
-            color: isHotTea ? Colors.white : const Color(0xFFE2DD8C),
+            color: isActive ? const Color.fromARGB(255, 255, 255, 255) : const Color.fromARGB(205, 243, 204, 178),
             fontSize: 14,
             fontFamily: 'Jaini Purva',
           ),
