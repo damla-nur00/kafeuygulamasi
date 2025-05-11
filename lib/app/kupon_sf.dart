@@ -1,6 +1,4 @@
-//kupon_sf.dart
 import 'package:flutter/material.dart';
-
 
 class KuponAlmaSf extends StatefulWidget {
   const KuponAlmaSf({super.key});
@@ -10,7 +8,7 @@ class KuponAlmaSf extends StatefulWidget {
 }
 
 class _KuponAlmaSfState extends State<KuponAlmaSf> {
-  int selectedCouponIndex = -1; // -1 means no coupon selected
+  int selectedCouponIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +26,7 @@ class _KuponAlmaSfState extends State<KuponAlmaSf> {
         title: const Text(
           'THE Coffee',
           style: TextStyle(
-            color: Color(0xFFF05454),
+            color: Color.fromARGB(255, 141, 107, 69),
             fontSize: 32,
             fontWeight: FontWeight.bold,
           ),
@@ -44,26 +42,27 @@ class _KuponAlmaSfState extends State<KuponAlmaSf> {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: Color.fromARGB(217, 0, 0, 0),
               ),
             ),
             const SizedBox(height: 20),
-            // Coupon selection buttons
+            // Kupon seçim butonları
             Column(
               children: [
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      selectedCouponIndex = 0; // Select the first coupon
+                      selectedCouponIndex = 0;
                     });
                   },
                   child: Container(
                     width: double.infinity,
                     height: 120,
                     decoration: BoxDecoration(
-                      color: selectedCouponIndex == 0
-                          ? const Color(0xFFE16076) // Selected color
-                          : const Color(0xFFF05454), // Default color
+                      color:
+                          selectedCouponIndex == 0
+                              ? const Color.fromARGB(156, 81, 61, 42)
+                              : const Color.fromARGB(255, 81, 61, 42),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
@@ -83,16 +82,17 @@ class _KuponAlmaSfState extends State<KuponAlmaSf> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      selectedCouponIndex = 1; // Select the second coupon
+                      selectedCouponIndex = 1;
                     });
                   },
                   child: Container(
                     width: double.infinity,
                     height: 120,
                     decoration: BoxDecoration(
-                      color: selectedCouponIndex == 1
-                          ? const Color(0xFFE16076) // Selected color
-                          : const Color(0xFFF05454), // Default color
+                      color:
+                          selectedCouponIndex == 1
+                              ? const Color.fromARGB(156, 81, 61, 42)
+                              : const Color.fromARGB(255, 81, 61, 42),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
@@ -112,16 +112,17 @@ class _KuponAlmaSfState extends State<KuponAlmaSf> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      selectedCouponIndex = 2; // Select the third coupon
+                      selectedCouponIndex = 2;
                     });
                   },
                   child: Container(
                     width: double.infinity,
                     height: 120,
                     decoration: BoxDecoration(
-                      color: selectedCouponIndex == 2
-                          ? const Color(0xFFE16076) // Selected color
-                          : const Color(0xFFF05454), // Default color
+                      color:
+                          selectedCouponIndex == 2
+                              ? const Color.fromARGB(156, 81, 61, 42)
+                              : const Color.fromARGB(255, 81, 61, 42),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
@@ -143,11 +144,19 @@ class _KuponAlmaSfState extends State<KuponAlmaSf> {
             ElevatedButton(
               onPressed: () {
                 if (selectedCouponIndex != -1) {
-                  Navigator.pop(context, selectedCouponIndex); // Pass the selected coupon index back
+                  Navigator.pop(context, selectedCouponIndex);
                 }
               },
-              child: const Text("Seçilen Kuponu Onayla"),
-            )
+              child: const Text(
+                "Seçilen Kuponu Onayla",
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         ),
       ),
