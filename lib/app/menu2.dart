@@ -1,7 +1,6 @@
-// menu_icerik_sf.dart
 import 'package:flutter/material.dart';
 import 'cartitem.dart';
-import 'cartdata.dart'; // CartData'yi dahil et
+import 'cartdata.dart'; 
 
 class MenuIcerik2Sf extends StatefulWidget {
   final String title;
@@ -23,8 +22,9 @@ class MenuIcerik2Sf extends StatefulWidget {
 
 class _MenuIcerikSfState extends State<MenuIcerik2Sf> {
   final String _selectedSize = 'Standart'; // Tek boyut sabitlendi
-  String _coffeeDescription = 'Delicious coffee'; // Default description
-  double updatedPrice = 0;
+  String _coffeeDescription = 'Delicious coffee'; 
+
+  double updatedPrice = 0; // Güncellenmiş fiyatı tutmak için değişken
 
   Map<String, String> priceDetails = {
     'Soğuk Sandviç': '90',
@@ -36,18 +36,12 @@ class _MenuIcerikSfState extends State<MenuIcerik2Sf> {
   };
 
   Map<String, String> descriptionDetails = {
-    'Soğuk Sandviç':
-        'Soğuk suyla karıştırılmış güçlü espresso, ferahlatıcı ve yoğun bir tat sunar.',
-    'Kumru':
-        'Soğuk süt, köpük ve espresso ile hazırlanan kremamsı ve hafif acı bir içecek.',
-    '3 Peynirli Bagel':
-        'Soğuk süt ve espresso karışımı, hafif ve yumuşak bir kahve deneyimi sunar.',
-    'Chesscake':
-        'Çikolata şurubu ve espresso karışımı, tatlı ve kahve severler için mükemmel bir içecek.',
-    'Supangle':
-        'Soğuk süt ve espresso ile yapılan yoğun kahve tadı ve hafif süt aromasıyla serinletici bir içecek.',
-    'Brownie':
-        'Buzlu, kremalı espresso karışımı, enerjik ve ferahlatıcı bir yaz içeceğidir.',
+    'Soğuk Sandviç':'Soğuk suyla karıştırılmış güçlü espresso, ferahlatıcı ve yoğun bir tat sunar.',
+    'Kumru':'Soğuk süt, köpük ve espresso ile hazırlanan kremamsı ve hafif acı bir içecek.',
+    '3 Peynirli Bagel':'Soğuk süt ve espresso karışımı, hafif ve yumuşak bir kahve deneyimi sunar.',
+    'Chesscake':'Çikolata şurubu ve espresso karışımı, tatlı ve kahve severler için mükemmel bir içecek.',
+    'Supangle':'Soğuk süt ve espresso ile yapılan yoğun kahve tadı ve hafif süt aromasıyla serinletici bir içecek.',
+    'Brownie':'Buzlu, kremalı espresso karışımı, enerjik ve ferahlatıcı bir yaz içeceğidir.',
   };
 
   @override
@@ -92,7 +86,7 @@ class _MenuIcerikSfState extends State<MenuIcerik2Sf> {
                     ),
                     Positioned(
                       left: 30,
-                      top: 350,
+                      top: 360,
                       child: SizedBox(
                         width: 200,
                         child: Text(
@@ -108,7 +102,7 @@ class _MenuIcerikSfState extends State<MenuIcerik2Sf> {
 
                     Positioned(
                       left: 30,
-                      top: 380,
+                      top: 400,
                       child: SizedBox(
                         width: 300,
                         child: Text(
@@ -136,9 +130,6 @@ class _MenuIcerikSfState extends State<MenuIcerik2Sf> {
                         ),
                       ),
                     ),
-
-                    // 👇 Bu kısım tamamen kaldırıldı: Choose Size
-                    // Eğer sadece görünüm olarak kalsın istersen tekrar ekleyebiliriz
                     Positioned(
                       left: 62,
                       top: 780,
@@ -198,4 +189,3 @@ class _MenuIcerikSfState extends State<MenuIcerik2Sf> {
   }
 }
 
-//menu2.dart
