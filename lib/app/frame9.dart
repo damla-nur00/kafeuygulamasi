@@ -1,4 +1,3 @@
-//frame9.dart
 import 'package:flutter/material.dart';
 import 'GirisKaydol.dart';
 import 'context_extension.dart';
@@ -9,10 +8,9 @@ class Frame9 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black, // Arka plan
+      backgroundColor: Colors.black, 
       body: Column(
         children: [
-          // Üst görsel (kesilmemiş)
           Image.asset(
             'assets/images/frame9.png',
             width: context.width,
@@ -30,7 +28,6 @@ class Frame9 extends StatelessWidget {
                   topLeft: Radius.circular(0),
                   topRight: Radius.circular(0),
                 ),
-                // KÖŞELER ARTIK YUVARLATILMIYOR
               ),
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
               child: Column(
@@ -39,7 +36,7 @@ class Frame9 extends StatelessWidget {
                   Column(
                     children: const [
                       Text(
-                        'Coffee so good,\nyour taste buds will love it.',
+                        'Bir yudum mutluluk, her fincanda.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 26,
@@ -49,7 +46,7 @@ class Frame9 extends StatelessWidget {
                       ),
                       SizedBox(height: 12),
                       Text(
-                        'The best grain, the finest roast, the powerful flavor.',
+                        'En kaliteli çekirdekler, ustalıkla kavrulmuş, lezzetle harmanlanmış.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 14,
@@ -66,7 +63,7 @@ class Frame9 extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE76D6A),
+                      backgroundColor: const Color.fromARGB(255, 205, 153, 175),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -74,7 +71,7 @@ class Frame9 extends StatelessWidget {
                           horizontal: 40, vertical: 16),
                     ),
                     child: const Text(
-                      'Get Coffee',
+                      'Kahveni Al',
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
