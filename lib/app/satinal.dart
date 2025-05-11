@@ -1,7 +1,6 @@
-//satinal.dart
+
 import 'package:flutter/material.dart';
-import 'cartitem.dart';
-import 'cartdata.dart';
+
 
 class Satinal extends StatefulWidget {
   @override
