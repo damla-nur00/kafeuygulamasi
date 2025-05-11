@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'cartitem.dart';
-import 'cartdata.dart'; // CartData'yi dahil et
+import 'cartdata.dart'; 
 
 class MenuIcerikSf extends StatefulWidget {
   final String title;
@@ -21,8 +21,8 @@ class MenuIcerikSf extends StatefulWidget {
 }
 
 class _MenuIcerikSfState extends State<MenuIcerikSf> {
-  String _selectedSize = 'Küçük'; // Default size
-  String _coffeeDescription = 'Delicious coffee'; // Default description
+  String _selectedSize = 'Küçük'; // Tek boyut sabitlendi
+  String _coffeeDescription = 'Delicious coffee'; 
 
   double updatedPrice = 0; // Güncellenmiş fiyatı tutmak için değişken
 
@@ -33,31 +33,61 @@ class _MenuIcerikSfState extends State<MenuIcerikSf> {
     'Iced Mocha': '80',
     'Iced Macchiato': '90',
     'Espresso Frappe': '90',
+    'Americano': '80',
+    'Cappuccino': '90',
+    'Latte': '90',
+    'White Chocolate Mocha': '100',
+    'Caramel Macchiato': '100',
+    'Türk Kahvesi': '80',
+    'Earl Grey': '90',
+    'Chai Tea': '80',
+    'Çay': '70',
+    'Yasemin Çayı': '80',
+    'Papatya Çayı': '80',
+    'Yeşil Çay': '80',
+    'Limonlu Soğuk Çay': '80',
+    'Şeftalili Soğuk Çay': '80',
+    'Yaseminli Soğuk Çay': '90',
+    'Yeşil Soğuk Çay': '90',
+    'Berry Mix Soğuk Çay': '100',
+    'Matcha Soğuk Çay': '100',
   };
 
   Map<String, String> descriptionDetails = {
-    'Iced Americano':
-        'Soğuk suyla karıştırılmış güçlü espresso, ferahlatıcı ve yoğun bir tat sunar.',
-    'Iced Cappuccino':
-        'Soğuk süt, köpük ve espresso ile hazırlanan kremamsı ve hafif acı bir içecek.',
-    'Iced Latte':
-        'Soğuk süt ve espresso karışımı, hafif ve yumuşak bir kahve deneyimi sunar.',
-    'Iced Mocha':
-        'Çikolata şurubu ve espresso karışımı, tatlı ve kahve severler için mükemmel bir içecek.',
-    'Iced Macchiato':
-        'Soğuk süt ve espresso ile yapılan yoğun kahve tadı ve hafif süt aromasıyla serinletici bir içecek.',
-    'Espresso Frappe':
-        'Buzlu, kremalı espresso karışımı, enerjik ve ferahlatıcı bir yaz içeceğidir.',
+    'Iced Americano':'Soğuk suyla karıştırılmış güçlü espresso, ferahlatıcı ve yoğun bir tat sunar.',
+    'Iced Cappuccino':'Soğuk süt, köpük ve espresso ile hazırlanan kremamsı ve hafif acı bir içecek.',
+    'Iced Latte':'Soğuk süt ve espresso karışımı, hafif ve yumuşak bir kahve deneyimi sunar.',
+    'Iced Mocha':'Çikolata şurubu ve espresso karışımı, tatlı ve kahve severler için mükemmel bir içecek.',
+    'Iced Macchiato':'Soğuk süt ve espresso ile yapılan yoğun kahve tadı ve hafif süt aromasıyla serinletici bir içecek.',
+    'Espresso Frappe':'Buzlu, kremalı espresso karışımı, enerjik ve ferahlatıcı bir yaz içeceğidir.',
+    'Americano':'Yoğun espresso üzerine sıcak su eklenerek hazırlanır, sade ve sert içimlidir.',
+    'Cappuccino':'Espresso, sıcak süt ve bol süt köpüğüyle yapılan klasik bir İtalyan kahvesidir.',
+    'Latte':'Espressoya bol süt eklenerek yumuşatılmış, hafif içimli bir kahvedir.',
+    'White Chocolate Mocha':'Beyaz çikolata sosu, süt ve espresso ile hazırlanan tatlı ve kremamsı bir içecektir.',
+    'Caramel Macchiato':'Vanilyalı süt ve espresso karışımı üzerine karamel sos gezdirilerek sunulur.',
+    'Türk Kahvesi':'İnce çekilmiş kahveyle yapılan, bol köpüklü ve yoğun aromalı geleneksel bir kahvedir.',
+    'Earl Grey':'Bergamot aromalı siyah çay, klasik ve ferahlatıcı bir tada sahiptir.',
+    'Chai Tea':'Tarçın, karanfil ve zencefil gibi baharatlarla demlenen güçlü aromalı siyah çay.',
+    'Çay':'Özenle seçilmiş yaprak ve bitkilerle demlenerek günün her anına eşlik eden doğal ve dinlendirici bir içecek deneyimi sunar.',
+    'Yasemin Çayı':'Yasemin çiçekleriyle aromalandırılmış hafif ve floral yeşil çay.',
+    'Papatya Çayı':'Rahatlatıcı ve yumuşak içimli, uyku öncesi tercih edilen bitki çayı.',
+    'Yeşil Çay':'Hafif içimli, antioksidan açısından zengin sağlıklı bir çay.',
+    'Limonlu Soğuk Çay':'Ferahlatıcı limon aromasıyla sıcak günlerde serinlik sunan klasik bir tercih.',
+    'Şeftalili Soğuk Çay':'Doğal şeftali aromasıyla yumuşak ve tatlı içimli serinletici bir çay.',
+    'Yaseminli Soğuk Çay':'Yasemin çiçeklerinin hoş kokusuyla harmanlanmış hafif ve aromatik bir içecek.',
+    'Yeşil Soğuk Çay':'Antioksidan dolu yeşil çay, hafif aromasıyla sağlıklı bir serinlik sağlar.',
+    'Berry Mix Soğuk Çay':'Orman meyvelerinin tatlı ve ekşi dengesiyle canlandırıcı bir deneyim sunar.',
+    'Matcha Soğuk Çay':'Japon yeşil çayı matcha ile hazırlanan enerjik ve modern bir soğuk içecek.',
   };
 
   @override
   void initState() {
     super.initState();
-    // Set the initial price and description based on the title
+    // Gelen title üzerinden açıklama ve fiyat belirleniyor
     _coffeeDescription = descriptionDetails[widget.title] ?? _coffeeDescription;
     updatedPrice = double.parse(
       priceDetails[widget.title]!,
-    ); // Başlangıç fiyatını küçük fiyatına eşitle
+    ); 
   }
 
   @override
@@ -137,14 +167,13 @@ class _MenuIcerikSfState extends State<MenuIcerikSf> {
                         ),
                       ),
                     ),
-                    // Add the gray separator line below the description
                     Positioned(
                       left: 22,
-                      top: 447, // Adjust position to place below description
+                      top: 447, 
                       child: Container(
                         width: 350,
                         height: 2,
-                        color: Colors.grey, // Gray separator line
+                        color: Colors.grey, 
                       ),
                     ),
                     Positioned(
@@ -217,7 +246,6 @@ class _MenuIcerikSfState extends State<MenuIcerikSf> {
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
-                                          // Orta ve Büyük boyut fiyat farkları
                                           if (size == 'Orta')
                                             Text(
                                               '+10 TL',
@@ -274,9 +302,9 @@ class _MenuIcerikSfState extends State<MenuIcerikSf> {
                               name: widget.title,
                               price:
                                   updatedPrice
-                                      .toString(), // Güncellenmiş fiyatı kullan
+                                      .toString(), 
                               imagePath: widget.imageUrl,
-                              size: _selectedSize, // Boyut ekliyoruz
+                              size: _selectedSize, 
                             ),
                           );
 
