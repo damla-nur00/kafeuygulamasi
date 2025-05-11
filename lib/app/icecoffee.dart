@@ -1,9 +1,5 @@
-//ıcecoffee.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/app/GirisKaydol.dart';
 import 'frame9.dart';
-import 'GirisKaydol.dart';
-
 import 'hotcoffee.dart';
 import 'hottea.dart';
 import 'bakery.dart';
@@ -42,7 +38,16 @@ class _IcecoffeeState extends State<Icecoffee> {
     'Espresso Frappe': '90',
   };
 
-  @override
+  Map<String, String> coffeeImages = {
+    'Iced Americano': 'assets/images/icedamericano.png',
+    'Iced Cappuccino': 'assets/images/icedcappuccino.png',
+    'Iced Latte': 'assets/images/icedlatte.png',
+    'Iced Mocha': 'assets/images/icedmocha.png',
+    'Iced Macchiato': 'assets/images/icedmacchiato.png',
+    'Espresso Frappe': 'assets/images/espressofrappe.png',
+  };
+
+    @override
   void initState() {
     super.initState();
     _filteredItems = _coffeeItems;
@@ -50,10 +55,9 @@ class _IcecoffeeState extends State<Icecoffee> {
 
   void _filterSearchResults(String query) {
     setState(() {
-      _filteredItems =
-          _coffeeItems
-              .where((item) => item.toLowerCase().contains(query.toLowerCase()))
-              .toList();
+      _filteredItems = _coffeeItems
+          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+          .toList();
     });
   }
 
@@ -68,21 +72,12 @@ class _IcecoffeeState extends State<Icecoffee> {
   void _filterByCategory(String category) {
     setState(() {
       selectedCategory = category;
-      _filteredItems =
-          _coffeeItems.where((item) {
-            return item.toLowerCase().contains(category.toLowerCase());
-          }).toList();
+      _filteredItems = _coffeeItems
+          .where((item) =>
+              item.toLowerCase().contains(category.toLowerCase()))
+          .toList();
     });
   }
-
-  Map<String, String> coffeeImages = {
-    'Iced Americano': 'assets/images/americano.png',
-    'Iced Cappuccino': 'assets/images/cappuccino.png',
-    'Iced Latte': 'assets/images/latte.png',
-    'Iced Mocha': 'assets/images/mocha.png',
-    'Iced Macchiato': 'assets/images/macchiato.png',
-    'Espresso Frappe': 'assets/images/espresso.png',
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +110,7 @@ class _IcecoffeeState extends State<Icecoffee> {
                 },
               ),
             ),
+            // Sol kategori menüsü
             Positioned(
               top: 60,
               bottom: 0,
@@ -122,7 +118,7 @@ class _IcecoffeeState extends State<Icecoffee> {
               child: Container(
                 width: 65,
                 decoration: const BoxDecoration(
-                  color: Color(0xFFE16076),
+                  color: Color.fromARGB(255, 79, 52, 35),
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(50),
                     bottomRight: Radius.circular(50),
@@ -144,6 +140,7 @@ class _IcecoffeeState extends State<Icecoffee> {
                 ),
               ),
             ),
+            // Üst bar
             Positioned(
               top: 0,
               left: 0,
@@ -166,7 +163,7 @@ class _IcecoffeeState extends State<Icecoffee> {
                     const Text(
                       'THE Coffee',
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Color.fromARGB(255, 141, 107, 69),
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
@@ -175,12 +172,12 @@ class _IcecoffeeState extends State<Icecoffee> {
                 ),
               ),
             ),
-            Positioned(
-              top: 80,
-              left: 65,
-              right: 20,
-              child: Visibility(
-                visible: _isSearchVisible,
+            // Arama kutusu
+            if (_isSearchVisible)
+              Positioned(
+                top: 13,
+                left: 65,
+                right: 20,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   decoration: BoxDecoration(
@@ -207,15 +204,15 @@ class _IcecoffeeState extends State<Icecoffee> {
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              top: 140,
-              left: 65,
-              right: 16,
-              child: Visibility(
-                visible: _isSearchVisible && _filteredItems.isNotEmpty,
+            // Arama alt liste
+            if (_isSearchVisible)
+              Positioned(
+                top: 60,
+                left: 65,
+                right: 20,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  height: 200,
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8),
@@ -244,32 +241,32 @@ class _IcecoffeeState extends State<Icecoffee> {
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),
+
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFFAA6DC0),
+        backgroundColor: const Color.fromARGB(255, 181, 164, 144),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart), // Sepet ikonu
+            icon: Icon(Icons.shopping_cart), 
             label: 'Cart',
           ),
           BottomNavigationBarItem(
-            icon: Text('🕹️', style: TextStyle(fontSize: 30)),
+            icon: Text('🎮', style: TextStyle(fontSize: 30)),
             label: 'Joystick',
           ),
           BottomNavigationBarItem(
-            icon: Text('🕹️', style: TextStyle(fontSize: 30)),
+            icon: Text('🎮', style: TextStyle(fontSize: 30)),
             label: 'Joystick',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.exit_to_app), // Çıkış ikonu
+            icon: Icon(Icons.exit_to_app), 
             label: 'Exit',
           ),
         ],
@@ -282,12 +279,11 @@ class _IcecoffeeState extends State<Icecoffee> {
               ), // Sepetim sayfasına yönlendir
             );
           } else if (index == 3) {
-            // Çıkış yapıldığında
-            // Çıkış işlemi yapılabilir, örneğin kullanıcıyı giriş sayfasına yönlendirebilirsiniz:
+            // Çıkış yapıldığında kullanıcıyı giriş sayfasına yönlendir
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => Frame9(), // Giriş sayfasına yönlendir
+                builder: (context) => Frame9(), 
               ),
             );
           }
@@ -362,7 +358,7 @@ class _IcecoffeeState extends State<Icecoffee> {
     );
   }
 
-  Widget _rotatedCategory(String label, bool isHotCoffee) {
+  Widget _rotatedCategory(String label, bool isActive) {
     return GestureDetector(
       onTap: () {
         _filterByCategory(label);
@@ -398,7 +394,7 @@ class _IcecoffeeState extends State<Icecoffee> {
         child: Text(
           label,
           style: TextStyle(
-            color: isHotCoffee ? Colors.white : const Color(0xFFE2DD8C),
+            color: isActive ? const Color.fromARGB(255, 255, 255, 255) : const Color.fromARGB(205, 243, 204, 178),
             fontSize: 14,
             fontFamily: 'Jaini Purva',
           ),
