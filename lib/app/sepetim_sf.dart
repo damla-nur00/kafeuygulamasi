@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'cartitem.dart';
 import 'cartdata.dart';
-import 'satinal.dart'; // Import Satinal page
 import 'kupon_sf.dart';
 
 class Sepetimsf extends StatefulWidget {
@@ -12,7 +10,7 @@ class Sepetimsf extends StatefulWidget {
 }
 
 class _SepetimsfState extends State<Sepetimsf> {
-  int? selectedCouponIndex; // Store selected coupon index
+  int? selectedCouponIndex; 
 
   // Sepet öğelerinin toplam sayısını hesaplamak
   int get totalItems =>
@@ -49,7 +47,7 @@ class _SepetimsfState extends State<Sepetimsf> {
             child: Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back),
+                  icon: const Icon(Icons.arrow_back,color:Colors.black),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -60,7 +58,7 @@ class _SepetimsfState extends State<Sepetimsf> {
                     fontSize: 18,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFFF05454),
+                    color: Color.fromARGB(255, 120, 90, 61),
                   ),
                 ),
               ],
@@ -70,8 +68,7 @@ class _SepetimsfState extends State<Sepetimsf> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              buttonBox('Kuponlarım', Colors.white, Colors.black, () async {
-                // Navigate to KuponAlmaSf page and receive the selected coupon index
+              buttonBox('Kuponlarım', Colors.white, const Color.fromARGB(255, 0, 0, 0), () async {
                 final selectedCoupon = await Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => KuponAlmaSf()),
@@ -85,7 +82,6 @@ class _SepetimsfState extends State<Sepetimsf> {
             ],
           ),
           const SizedBox(height: 20),
-          // Show the selected coupon information
           if (selectedCouponIndex != null)
             Text(
               'Seçilen Kupon: ${selectedCouponIndex == 0
@@ -102,7 +98,7 @@ class _SepetimsfState extends State<Sepetimsf> {
               itemBuilder: (context, index) {
                 final item = CartData.items[index];
                 final unitPrice =
-                    double.tryParse(item.price) ?? 0.0; // double fiyat
+                    double.tryParse(item.price) ?? 0.0; 
                 return Container(
                   margin: const EdgeInsets.symmetric(
                     horizontal: 10,
@@ -138,7 +134,6 @@ class _SepetimsfState extends State<Sepetimsf> {
                                 color: Color(0xFF2C0909),
                               ),
                             ),
-                            // Boyut bilgisini burada ekliyoruz
                             Text(
                               'Boyut: ${item.size}', // Boyut burada gösteriliyor
                               style: const TextStyle(
@@ -172,7 +167,7 @@ class _SepetimsfState extends State<Sepetimsf> {
                                     fontSize: 20,
                                     fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w700,
-                                    color: Color(0xFFE17676),
+                                    color: Color.fromARGB(255, 199, 171, 153),
                                   ),
                                 ),
                                 const SizedBox(width: 10),
@@ -185,7 +180,7 @@ class _SepetimsfState extends State<Sepetimsf> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
+                        icon: const Icon(Icons.delete, color: Color.fromARGB(255, 0, 0, 0)),
                         onPressed: () {
                           setState(() {
                             CartData.items.removeAt(index);
@@ -226,20 +221,18 @@ class _SepetimsfState extends State<Sepetimsf> {
                       fontSize: 16,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w700,
-                      color: Color(0xFFCC4E50),
+                      color: Color.fromARGB(255, 118, 88, 68),
                     ),
                   ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 10),
-          // Add the "Onayla" button at the bottom
+          const SizedBox(height: 10), 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: GestureDetector(
               onTap: () {
-                // Navigate to the Satinal page when 'Onayla' button is pressed
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -251,7 +244,7 @@ class _SepetimsfState extends State<Sepetimsf> {
                       actions: <Widget>[
                         TextButton(
                           onPressed: () {
-                            Navigator.of(context).pop(); // Mesajı kapat
+                            Navigator.of(context).pop(); 
                           },
                           child: const Text('Tamam'),
                         ),
@@ -264,7 +257,7 @@ class _SepetimsfState extends State<Sepetimsf> {
                 width: double.infinity,
                 height: 56.71,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFCC4E50),
+                  color: Color.fromARGB(255, 79, 52, 35),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: const Center(
@@ -325,7 +318,7 @@ class _SepetimsfState extends State<Sepetimsf> {
         width: 30,
         height: 30,
         decoration: BoxDecoration(
-          color: const Color(0xFFE17676),
+          color: const Color.fromARGB(255, 163, 124, 98),
           shape: BoxShape.circle,
         ),
         child: Center(
